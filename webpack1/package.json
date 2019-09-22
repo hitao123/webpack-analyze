@@ -1,0 +1,32 @@
+{
+  "name": "webpack1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "es6": "rimraf ./src/es6/dist/ && webpack --config webpack.es6.js",
+    "common": "rimraf ./src/commonjs/dist/ && webpack --config webpack.commonjs.js",
+    "react": "rimraf ./src/react/dist/ && webpack --config webpack.react.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.23.1",
+    "html-webpack-plugin": "^1.7.0",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
+    "rimraf": "^3.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0"
+  }
+}

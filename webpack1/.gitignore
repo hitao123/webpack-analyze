@@ -1,0 +1,4 @@
+src/es6/dist/
+src/commonjs/dist/
+src/react/dist/
+node_modules
