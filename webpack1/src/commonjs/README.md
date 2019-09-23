@@ -44,10 +44,10 @@
     })([
     function(module, exports, __webpack_require__) {
 
-        var util = __webpack_require__(1);
+        var add = __webpack_require__(1);
 
         function calculator(num1, num2) {
-            var result = util.add(num1, num2);
+            var result = add(num1, num2);
             console.log(result)
             return result;
         }

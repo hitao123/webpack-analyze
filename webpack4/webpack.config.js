@@ -9,8 +9,7 @@ const ENV_CSS_LOADER = process.env.NODE_ENV === 'production'
 const PORT = 5000
 
 module.exports = {
-    mode: 'development',
-    devtool: 'cheap-eval-source-map',
+    mode: 'production',
     entry: {
         main: [
             path.join(__dirname, 'src/index.js')
@@ -19,7 +18,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'js/[name].[hash].js',
-        chunkFilename: 'js/[name].[chunkhash:8].js',
+        chunkFilename: 'js/[name].[hash:8].js',
         publicPath: './'
     },
     module: {
@@ -77,26 +76,47 @@ module.exports = {
             src: path.join(__dirname, 'src')
         }
     },
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'all'
-    //     }
-    // },
+    optimization: {
+        minimize: false,
+        splitChunks: {
+            chunks: 'all',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            cacheGroups: {
+                vendors: {
+                    test: /node_modules/,
+                    minChunks: 1,
+                    name: 'vendor',
+                    priority: -10
+                },
+                default: {
+                    test: /[\\/]src[\\/]js[\\/]/,
+                    minChunks: 2,
+                    name: 'main',
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.html',
-            inject: true,
-            showErrors: true
+            template: path.resolve(__dirname, './index.ejs'),
+            inject: true
         }),
         new MiniCssExtractPlugin({
             filename: 'css/[chunkhash:8].css',
             chunkFilename: 'css/[chunkhash:8].css'
         })
     ],
-    // devServer: {
-    //     contentBase: path.join(__dirname, 'dist'),
-    //     historyApiFallback: true,
-    //     port: PORT
-    // }
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        historyApiFallback: true,
+        hot: true,
+        port: PORT
+    }
 };

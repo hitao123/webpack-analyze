@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 
 
-const Home = function(location, callback) {
+const Home = (location, callback) => {
     require.ensure([], function(require) {
-      callback(null, require('./components/Home'));
+      callback(null, require('./components/Home').default);
     }, 'home');
 };
 
-const List = function(location, callback) {
+const List = (location, callback) => {
     require.ensure([], function(require) {
-      callback(null, require('./components/List'));
+      callback(null, require('./components/List').default);
     }, 'list');
 };
 
-const Page = function(location, callback) {
+const Page = (location, callback) => {
     require.ensure([], function(require) {
-      callback(null, require('./components/Page'));
+      callback(null, require('./components/Page').default);
     }, 'page');
 };
 
@@ -25,6 +25,19 @@ class Root extends Component {
         return(
             <div>
                 {this.props.children}
+            </div>
+        )
+    }
+}
+
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <Link to="/">/</Link>
+                <Link to="/home">home</Link>
+                <Link to="/list">list</Link>
+                <Link to="/page">page</Link>
             </div>
         )
     }

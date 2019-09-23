@@ -9,7 +9,8 @@ module.exports = {
         ],
         vendor: [
             'react',
-            'react-dom'
+            'react-dom',
+            'react-router'
         ]
     },
     output: {
@@ -48,7 +49,7 @@ module.exports = {
             template: './index.html',
             inject: true
         }),
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[chunkhash:8].js')
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')
     ],
     resolve: {
         extensions: ['', '.js', '.jsx']
