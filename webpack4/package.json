@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --colors --hot",
-    "build": "rimraf dist/ && cross-env NODE_ENV=production  webpack --config webpack.config.js"
+    "run": "rimraf dist/ && cross-env NODE_ENV=production  webpack --config webpack.config.js",
+    "build": "node --inspect-brk=5858 ./node_modules/.bin/webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "highlight.js": "^9.15.10",
+    "markdown-it": "^10.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

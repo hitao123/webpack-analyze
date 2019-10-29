@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const loader = require('webpack-test-loader');
+const WebpackTestPlugin = require('webpack-test-plugin');
 const ENV_CSS_LOADER = process.env.NODE_ENV === 'production'
     ? MiniCssExtractPlugin.loader : 'style-loader';
 
@@ -67,6 +68,28 @@ module.exports = {
                     ENV_CSS_LOADER,
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.md$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                '@babel/preset-react',
+                                ['@babel/preset-env', {
+                                    useBuiltIns: 'entry'
+                                }]
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'webpack-test-loader',
+                        options: {
+                            test: true
+                        }
+                    },
+                ]
             }
         ]
     },
@@ -103,6 +126,11 @@ module.exports = {
         }
     },
     plugins: [
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        //     }
+        // }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, './index.ejs'),
@@ -111,6 +139,15 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[chunkhash:8].css',
             chunkFilename: 'css/[chunkhash:8].css'
+        }),
+        new WebpackTestPlugin({
+            banner: `
+@license 
+(c) 2019-${new Date().getFullYear()} Billow
+
+This source code is licensed under the MIT license found in the
+LICENSE file in the root directory of this source tree.
+            `
         })
     ],
     devServer: {

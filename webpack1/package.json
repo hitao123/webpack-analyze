@@ -7,7 +7,9 @@
     "es6": "rimraf ./src/es6/dist/ && webpack --config webpack.es6.js",
     "common": "rimraf ./src/commonjs/dist/ && webpack --config webpack.commonjs.js",
     "react": "rimraf ./src/react/dist/ && webpack --config webpack.react.js",
-    "start": "webpack-dev-server --config webpack.react.js --hot --inline --content-base ./src/react/dist/"
+    "start": "webpack-dev-server --config webpack.react.js --hot --inline --content-base ./src/react/dist/",
+    "build": "node --inspect-brk=5858 ./node_modules/.bin/webpack --config webpack.commonjs.js"
+
   },
   "author": "",
   "license": "ISC",
